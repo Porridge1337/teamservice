@@ -11,10 +11,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DataSourceFactory {
 
     private static final Properties DB_SETTINGS = new Properties();
+    private static final Logger LOGGER = Logger.getLogger(DataSourceFactory.class.getName());
     private final DataSource dataSource;
 
     public DataSourceFactory() {
@@ -27,9 +30,11 @@ public class DataSourceFactory {
             dataSource.setUser(DB_SETTINGS.getProperty("db.user"));
             dataSource.setPassword(DB_SETTINGS.getProperty("db.password"));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "File application.properties not found", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "IO error", e);
         }
         this.dataSource = dataSource;
     }
