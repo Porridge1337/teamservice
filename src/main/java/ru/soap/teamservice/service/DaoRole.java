@@ -17,5 +17,5 @@ public interface DaoRole {
 
     @WebMethod(operationName = "saveNewRole")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.SaveNewRole", localName = "saveNewRole")
-    boolean saveNewRole(@WebParam(name = "new-save-user") Role role);
+    boolean saveNewRole(@WebParam(name = "new-save-role") Role role);
 }
