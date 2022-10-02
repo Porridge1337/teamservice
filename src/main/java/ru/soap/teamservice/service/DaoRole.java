@@ -3,6 +3,7 @@ package ru.soap.teamservice.service;
 import ru.soap.teamservice.model.Role;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.ws.RequestWrapper;
 import java.util.List;
@@ -16,5 +17,5 @@ public interface DaoRole {
 
     @WebMethod(operationName = "saveNewRole")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.SaveNewRole", localName = "saveNewRole")
-    boolean saveNewRole(Role role);
+    boolean saveNewRole(@WebParam(name = "new-save-user") Role role);
 }
