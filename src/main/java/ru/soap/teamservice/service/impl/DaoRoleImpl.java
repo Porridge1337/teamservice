@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import ru.soap.teamservice.config.DataSourceFactory;
 import ru.soap.teamservice.model.Role;
 import ru.soap.teamservice.service.DaoRole;
+import ru.soap.teamservice.service.DaoUser;
 
 import javax.jws.WebService;
 import java.sql.Connection;
@@ -13,12 +14,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @NoArgsConstructor
 @WebService(endpointInterface = "ru.soap.teamservice.service.DaoRole")
 @SchemaValidation(inbound = true, outbound = true)
 public class DaoRoleImpl implements DaoRole {
 
+    private static final Logger LOGGER = Logger.getLogger(DaoRole.class.getName());
 
     @Override
     public List<Role> findUserRoles() {
@@ -31,7 +35,8 @@ public class DaoRoleImpl implements DaoRole {
                 userRoleById.add(role);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception when trying found users roles.", e);
         }
         return userRoleById;
     }
@@ -46,6 +51,7 @@ public class DaoRoleImpl implements DaoRole {
             resultSave = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception when trying create new role.", e);
         }
         return resultSave;
     }

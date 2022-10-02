@@ -15,11 +15,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @NoArgsConstructor
 @WebService(endpointInterface = "ru.soap.teamservice.service.DaoUser")
 @SchemaValidation(inbound = true, outbound = true)
 public class DaoUserImpl implements DaoUser {
+    private static final Logger LOGGER = Logger.getLogger(DaoUser.class.getName());
 
     @Override
     public List<User> findAll() {
@@ -60,7 +63,8 @@ public class DaoUserImpl implements DaoUser {
                 foundedUser.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception when trying found user.", e);
         }
         return foundedUser;
     }
@@ -106,7 +110,8 @@ public class DaoUserImpl implements DaoUser {
                 foundedUserByRole.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception while trying found users by role.", e);
         }
         return foundedUserByRole;
     }
@@ -152,7 +157,8 @@ public class DaoUserImpl implements DaoUser {
                 foundedUserByGroup.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception while trying found users by group.", e);
         }
         return foundedUserByGroup;
     }
@@ -195,7 +201,8 @@ public class DaoUserImpl implements DaoUser {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception while trying found user by id.", e);
         }
         return userById;
     }
@@ -237,7 +244,8 @@ public class DaoUserImpl implements DaoUser {
                 userByLogin.setGroup(group);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception while trying found users by login.", e);
         }
         return userByLogin;
     }
@@ -259,7 +267,8 @@ public class DaoUserImpl implements DaoUser {
 
             resultSave = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception while trying save User", e);
         }
         return resultSave;
     }
@@ -282,7 +291,8 @@ public class DaoUserImpl implements DaoUser {
 
             resultUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception while trying update User", e);
         }
         return resultUpdate;
     }
@@ -295,7 +305,8 @@ public class DaoUserImpl implements DaoUser {
             preparedStatement.setInt(1, id);
             resultDelete = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Exception while trying delete user", e);
         }
         return resultDelete;
     }
