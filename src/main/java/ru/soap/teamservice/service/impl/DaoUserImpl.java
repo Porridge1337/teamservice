@@ -48,9 +48,11 @@ public class DaoUserImpl implements DaoUser {
                 group.setGroup(rs.getString("groupname"));
 
                 user.setId(userId);
+                user.setLogin(rs.getString("login"));
                 user.setUsername(rs.getString("username"));
                 user.setSurname(rs.getString("surname"));
-                user.setTelegramLogin(rs.getString("telegram_login"));
+                user.setTelegramUser(rs.getString("telegram_user"));
+                user.setTelegramId(rs.getLong("telegram_id"));
                 user.setPhone(rs.getString("phone"));
                 user.setRole(role);
                 user.setGroup(group);
@@ -92,9 +94,11 @@ public class DaoUserImpl implements DaoUser {
                 group.setGroup(rs.getString("groupname"));
 
                 user.setId(userId);
+                user.setLogin(rs.getString("login"));
                 user.setUsername(rs.getString("username"));
                 user.setSurname(rs.getString("surname"));
-                user.setTelegramLogin(rs.getString("telegram_login"));
+                user.setTelegramUser(rs.getString("telegram_user"));
+                user.setTelegramId(rs.getLong("telegram_id"));
                 user.setPhone(rs.getString("phone"));
                 user.setRole(role);
                 user.setGroup(group);
@@ -136,9 +140,11 @@ public class DaoUserImpl implements DaoUser {
                 group.setGroup(rs.getString("groupname"));
 
                 user.setId(userId);
+                user.setLogin(rs.getString("login"));
                 user.setUsername(rs.getString("username"));
                 user.setSurname(rs.getString("surname"));
-                user.setTelegramLogin(rs.getString("telegram_login"));
+                user.setTelegramUser(rs.getString("telegram_user"));
+                user.setTelegramId(rs.getLong("telegram_id"));
                 user.setPhone(rs.getString("phone"));
                 user.setRole(role);
                 user.setGroup(group);
@@ -166,7 +172,6 @@ public class DaoUserImpl implements DaoUser {
             while (rs.next()) {
                 Role role = new Role();
                 Group group = new Group();
-                User user = new User();
 
                 int userId = rs.getInt("id");
                 int roleId = rs.getInt("r_id");
@@ -179,9 +184,11 @@ public class DaoUserImpl implements DaoUser {
                 group.setGroup(rs.getString("groupname"));
 
                 userById.setId(userId);
+                userById.setLogin(rs.getString("login"));
                 userById.setUsername(rs.getString("username"));
                 userById.setSurname(rs.getString("surname"));
-                userById.setTelegramLogin(rs.getString("telegram_login"));
+                userById.setTelegramUser(rs.getString("telegram_user"));
+                userById.setTelegramId(rs.getLong("telegram_id"));
                 userById.setPhone(rs.getString("phone"));
                 userById.setRole(role);
                 userById.setGroup(group);
@@ -202,13 +209,12 @@ public class DaoUserImpl implements DaoUser {
                     "on usr.role_fk=rl.r_id\n" +
                     "join service.gropus as gr\n" +
                     "on usr.group_fk = gr.g_id\n" +
-                    "WHERE telegram_login = ?;");
+                    "WHERE login = ?;");
             prepareStatement.setString(1, login);
             ResultSet rs = prepareStatement.executeQuery();
             while (rs.next()) {
                 Role role = new Role();
                 Group group = new Group();
-                User user = new User();
 
                 int userId = rs.getInt("id");
                 int roleId = rs.getInt("r_id");
@@ -221,9 +227,11 @@ public class DaoUserImpl implements DaoUser {
                 group.setGroup(rs.getString("groupname"));
 
                 userByLogin.setId(userId);
+                userByLogin.setLogin(rs.getString("login"));
                 userByLogin.setUsername(rs.getString("username"));
                 userByLogin.setSurname(rs.getString("surname"));
-                userByLogin.setTelegramLogin(rs.getString("telegram_login"));
+                userByLogin.setTelegramUser(rs.getString("telegram_user"));
+                userByLogin.setTelegramId(rs.getLong("telegram_id"));
                 userByLogin.setPhone(rs.getString("phone"));
                 userByLogin.setRole(role);
                 userByLogin.setGroup(group);
@@ -238,12 +246,17 @@ public class DaoUserImpl implements DaoUser {
     public boolean save(User user) {
         boolean resultSave = false;
         try (Connection connection = DataSourceFactory.connection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO service.users (username, surname," +
-                    "telegram_login, phone) VALUES (?, ?, ?, ?)");
-            preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getSurname());
-            preparedStatement.setString(3, user.getTelegramLogin());
-            preparedStatement.setString(4, user.getPhone());
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO service.users (login, username, surname," +
+                    "telegram_user, telegram_id, phone, role_fk, group_fk) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getSurname());
+            preparedStatement.setString(4, user.getTelegramUser());
+            preparedStatement.setLong(5, user.getTelegramId());
+            preparedStatement.setString(6, user.getPhone());
+            preparedStatement.setInt(7, user.getRole().getR_id());
+            preparedStatement.setInt(8, user.getGroup().getG_id());
+
             resultSave = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -255,13 +268,18 @@ public class DaoUserImpl implements DaoUser {
     public boolean update(User user) {
         boolean resultUpdate = false;
         try (Connection connection = DataSourceFactory.connection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE service.users SET username = ?, surname = ?," +
-                    "telegram_login = ?, phone = ? WHERE id = ? ");
-            preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getSurname());
-            preparedStatement.setString(3, user.getTelegramLogin());
-            preparedStatement.setString(4, user.getPhone());
-            preparedStatement.setInt(5, user.getId());
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE service.users SET login = ?, username = ?, surname = ?," +
+                    "telegram_user = ?, telegram_id = ?, phone = ?, role_fk = ?, group_fk = ? WHERE id = ? ");
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getUsername());
+            preparedStatement.setString(3, user.getSurname());
+            preparedStatement.setString(4, user.getTelegramUser());
+            preparedStatement.setLong(5, user.getTelegramId());
+            preparedStatement.setString(6, user.getPhone());
+            preparedStatement.setInt(7, user.getRole().getR_id());
+            preparedStatement.setInt(8, user.getGroup().getG_id());
+            preparedStatement.setInt(9, user.getId());
+
             resultUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
