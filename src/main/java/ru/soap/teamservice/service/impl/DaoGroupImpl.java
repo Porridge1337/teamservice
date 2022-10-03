@@ -3,7 +3,6 @@ package ru.soap.teamservice.service.impl;
 import ru.soap.teamservice.config.DataSourceFactory;
 import ru.soap.teamservice.model.Group;
 import ru.soap.teamservice.service.DaoGroup;
-import ru.soap.teamservice.service.DaoUser;
 
 import javax.jws.WebService;
 import java.sql.Connection;
@@ -32,7 +31,6 @@ public class DaoGroupImpl implements DaoGroup {
                 groupList.add(group);
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
             LOGGER.log(Level.SEVERE, "Exception when trying found all groups.", e);
         }
 
@@ -48,7 +46,6 @@ public class DaoGroupImpl implements DaoGroup {
             preparedStatement.setString(1, group.getGroup());
             resultSave = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            //e.printStackTrace();
             LOGGER.log(Level.SEVERE, "Exception when trying save group.", e);
         }
         return resultSave;
@@ -64,7 +61,6 @@ public class DaoGroupImpl implements DaoGroup {
             preparedStatement.setInt(2, group.getG_id());
             resultUpdate = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            //e.printStackTrace();
             LOGGER.log(Level.SEVERE, "Exception when trying update group.", e);
         }
         return resultUpdate;
@@ -78,7 +74,6 @@ public class DaoGroupImpl implements DaoGroup {
             preparedStatement.setInt(1, id);
             resultDelete = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            //e.printStackTrace();
             LOGGER.log(Level.SEVERE, "Exception when trying delete group by id.", e);
         }
         return resultDelete;
