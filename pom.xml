@@ -41,7 +41,7 @@
     </dependencies>
 
     <build>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+        <pluginManagement>
             <plugins>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -89,24 +89,63 @@
                     <version>2.6</version>
                     <executions>
                         <execution>
-                            <id>wsimport-from-jdk</id>
+                            <id>wsdl-user-import</id>
                             <phase>generate-sources</phase>
                             <goals>
                                 <goal>wsimport</goal>
                             </goals>
+                            <configuration>
+                                <wsdlUrls>
+                                    <wsdlUrl>
+                                        http://localhost:9898/Users?wsdl
+                                    </wsdlUrl>
+                                </wsdlUrls>
+                                <packageName>ru.soap.teamservice.ws.client</packageName>
+                                <sourceDestDir>
+                                    ${project.build.directory}/generated-sources/
+                                </sourceDestDir>
+                                <verbose>true</verbose>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>wsdl-role-import</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>wsimport</goal>
+                            </goals>
+                            <configuration>
+                                <wsdlUrls>
+                                    <wsdlUrl>
+                                        http://localhost:9898/Roles?wsdl
+                                    </wsdlUrl>
+                                </wsdlUrls>
+                                <packageName>ru.soap.teamservice.ws.client</packageName>
+                                <sourceDestDir>
+                                    ${project.build.directory}/generated-sources/
+                                </sourceDestDir>
+                                <verbose>true</verbose>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>wsdl-group-import</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>wsimport</goal>
+                            </goals>
+                            <configuration>
+                                <wsdlUrls>
+                                    <wsdlUrl>
+                                        http://localhost:9898/Groups?wsdl
+                                    </wsdlUrl>
+                                </wsdlUrls>
+                                <packageName>ru.soap.teamservice.ws.client</packageName>
+                                <sourceDestDir>
+                                    ${project.build.directory}/generated-sources/
+                                </sourceDestDir>
+                                <verbose>true</verbose>
+                            </configuration>
                         </execution>
                     </executions>
-                    <configuration>
-                        <wsdlUrls>
-                            <wsdlUrl>
-                                http://localhost:9898/teamService?wsdl
-                            </wsdlUrl>
-                        </wsdlUrls>
-                        <packageName>ru.soap.teamservice.ws.client</packageName>
-                        <sourceDestDir>
-                            ${project.build.directory}/generated-sources/
-                        </sourceDestDir>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
