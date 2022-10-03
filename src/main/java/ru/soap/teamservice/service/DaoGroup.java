@@ -19,8 +19,8 @@ public interface DaoGroup {
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.SaveGroup", localName = "saveGroup")
     boolean saveGroup(@WebParam(name = "saved-group") Group group);
 
-    @WebMethod(operationName = "updateGroupById")
-    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.UpdateGroupById", localName = "updateGroupById")
+    @WebMethod(operationName = "updateGroup")
+    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.UpdateGroup", localName = "updateGroup")
     boolean updateGroup(@WebParam(name = "updated-group") Group group);
 
     @WebMethod(operationName = "deleteGroupById")

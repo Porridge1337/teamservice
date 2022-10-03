@@ -11,8 +11,8 @@ import java.util.List;
 @WebService
 public interface DaoRole {
 
-    @WebMethod(operationName = "findUserRoleById")
-    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUserRoleById", localName = "findUserRoleById")
+    @WebMethod(operationName = "findUserRoles")
+    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUserRoles", localName = "findUserRoles")
     List<Role> findUserRoles();
 
     @WebMethod(operationName = "saveNewRole")

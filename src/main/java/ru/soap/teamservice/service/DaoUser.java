@@ -15,12 +15,12 @@ public interface DaoUser {
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindAllUsers", localName = "findAllUsers")
     List<User> findAll();
 
-    @WebMethod(operationName = "findUsersByRoleId")
-    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUsersByRoleId", localName = "findUsersByRoleId")
+    @WebMethod(operationName = "findUsersByRolename")
+    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUsersByRolename", localName = "findUsersByRolename")
     List<User> findUsersByRole(@WebParam(name = "roleName") String roleName);
 
-    @WebMethod(operationName = "findUsersByGroupId")
-    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUsersByGroupId", localName = "findUsersByGroupId")
+    @WebMethod(operationName = "findUsersByGroupname")
+    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUsersByGroupname", localName = "findUsersByGroupname")
     List<User> findUsersByGroup(@WebParam(name = "groupName") String groupName);
 
     @WebMethod(operationName = "findUserById")
