@@ -102,7 +102,7 @@
                                 </wsdlUrls>
                                 <packageName>ru.soap.teamservice.ws.client</packageName>
                                 <sourceDestDir>
-                                    ${project.build.directory}/generated-sources/
+                                    ${project.basedir}/src/main/java/
                                 </sourceDestDir>
                                 <verbose>true</verbose>
                             </configuration>
@@ -121,7 +121,7 @@
                                 </wsdlUrls>
                                 <packageName>ru.soap.teamservice.ws.client</packageName>
                                 <sourceDestDir>
-                                    ${project.build.directory}/generated-sources/
+                                    ${project.basedir}/src/main/java/
                                 </sourceDestDir>
                                 <verbose>true</verbose>
                             </configuration>
@@ -140,7 +140,7 @@
                                 </wsdlUrls>
                                 <packageName>ru.soap.teamservice.ws.client</packageName>
                                 <sourceDestDir>
-                                    ${project.build.directory}/generated-sources/
+                                    ${project.basedir}/src/main/java/
                                 </sourceDestDir>
                                 <verbose>true</verbose>
                             </configuration>
