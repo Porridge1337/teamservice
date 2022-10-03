@@ -15,22 +15,22 @@ public class WebServiceServer {
     private static Logger logger = Logger.getLogger(WebServiceServer.class.getName());
 
     public static void main(String[] args) {
-        String bindingURI1 = "http://localhost:9898/team1";
-        String bindingURI2 = "http://localhost:9898/team2";
-        String bindingURI3 = "http://localhost:9898/team3";
+        String useruri = "http://localhost:9898/Users";
+        String roleuri = "http://localhost:9898/Roles";
+        String groupuri = "http://localhost:9898/Groups";
 
         logger.info("This is level info logging");
         DaoUser daoUser = new DaoUserImpl();
         DaoRole daoRole = new DaoRoleImpl();
-        DaoGroup group = new DaoGroupImpl();
+        DaoGroup daoGroup = new DaoGroupImpl();
 
-        Endpoint.publish(bindingURI1, daoUser);
-        Endpoint.publish(bindingURI2, daoRole);
-        Endpoint.publish(bindingURI3, group);
+        Endpoint.publish(useruri, daoUser);
+        Endpoint.publish(roleuri, daoRole);
+        Endpoint.publish(groupuri, daoGroup);
 
-        logger.info("Server started at: " + bindingURI1);
-        logger.info("Server started at: " + bindingURI2);
-        logger.info("Server started at: " + bindingURI3);
+        logger.info("Server started at: " + useruri + "?wsdl");
+        logger.info("Server started at: " + roleuri + "?wsdl");
+        logger.info("Server started at: " + groupuri + "?wsdl") ;
 
 
     }
