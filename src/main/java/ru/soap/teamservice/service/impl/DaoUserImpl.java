@@ -31,7 +31,7 @@ public class DaoUserImpl implements DaoUser {
             PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM service.users as usr\n" +
                     "join service.roles as rl\n" +
                     "on usr.role_fk=rl.r_id\n" +
-                    "join service.gropus as gr\n" +
+                    "join service.groups as gr\n" +
                     "on usr.group_fk = gr.g_id;");
             ResultSet rs = prepareStatement.executeQuery();
             while (rs.next()) {
@@ -76,7 +76,7 @@ public class DaoUserImpl implements DaoUser {
             PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM service.users as usr\n" +
                     "join service.roles as rl\n" +
                     "on usr.role_fk=rl.r_id\n" +
-                    "join service.gropus as gr\n" +
+                    "join service.groups as gr\n" +
                     "on usr.group_fk = gr.g_id\n" +
                     "WHERE rl.rolename = ?;");
             prepareStatement.setString(1, roleName);
@@ -123,7 +123,7 @@ public class DaoUserImpl implements DaoUser {
             PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM service.users as usr\n" +
                     "join service.roles as rl\n" +
                     "on usr.role_fk=rl.r_id\n" +
-                    "join service.gropus as gr\n" +
+                    "join service.groups as gr\n" +
                     "on usr.group_fk = gr.g_id\n" +
                     "WHERE gr.groupname = ?;");
             prepareStatement.setString(1, groupName);
@@ -170,7 +170,7 @@ public class DaoUserImpl implements DaoUser {
             PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM service.users as usr\n" +
                     "join service.roles as rl\n" +
                     "on usr.role_fk=rl.r_id\n" +
-                    "join service.gropus as gr\n" +
+                    "join service.groups as gr\n" +
                     "on usr.group_fk = gr.g_id\n" +
                     "WHERE id = ?;");
             prepareStatement.setInt(1, id);
@@ -214,7 +214,7 @@ public class DaoUserImpl implements DaoUser {
             PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM service.users as usr\n" +
                     "join service.roles as rl\n" +
                     "on usr.role_fk=rl.r_id\n" +
-                    "join service.gropus as gr\n" +
+                    "join service.groups as gr\n" +
                     "on usr.group_fk = gr.g_id\n" +
                     "WHERE login = ?;");
             prepareStatement.setString(1, login);
