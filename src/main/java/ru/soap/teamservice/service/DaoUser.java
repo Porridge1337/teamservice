@@ -31,6 +31,10 @@ public interface DaoUser {
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUserByLogin", localName = "findUserByLogin")
     User findUserByLogin(@WebParam(name = "user-telegramLogin") String login);
 
+    @WebMethod(operationName = "findUserByTelegramId")
+    @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUserByTelegramId", localName = "FindUserByTelegramId")
+    User FindUserByTelegramId(@WebParam(name = "user-telegramId") String login);
+
     @WebMethod(operationName = "saveUser")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.SaveUser", localName = "saveUser")
     boolean save(@WebParam(name = "saved-user") User user);

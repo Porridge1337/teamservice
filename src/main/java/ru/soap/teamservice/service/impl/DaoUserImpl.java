@@ -243,6 +243,48 @@ public class DaoUserImpl implements DaoUser {
     }
 
     @Override
+    public User FindUserByTelegramId(String login) {
+        User userByLogin = new User();
+        try (Connection connection = DataSourceFactory.connection()) {
+            PreparedStatement prepareStatement = connection.prepareStatement("SELECT * FROM service.users as usr\n" +
+                    "join service.roles as rl\n" +
+                    "on usr.role_fk=rl.r_id\n" +
+                    "join service.groups as gr\n" +
+                    "on usr.group_fk = gr.g_id\n" +
+                    "WHERE telegram_id = ?;");
+            prepareStatement.setLong(1, Long.parseLong(login));
+            ResultSet rs = prepareStatement.executeQuery();
+            while (rs.next()) {
+                Role role = new Role();
+                Group group = new Group();
+
+                int userId = rs.getInt("id");
+                int roleId = rs.getInt("r_id");
+                int groupId = rs.getInt("g_id");
+
+                role.setR_id(roleId);
+                role.setRoleName(rs.getString("rolename"));
+
+                group.setG_id(groupId);
+                group.setGroup(rs.getString("groupname"));
+
+                userByLogin.setId(userId);
+                userByLogin.setLogin(rs.getString("login"));
+                userByLogin.setUsername(rs.getString("username"));
+                userByLogin.setSurname(rs.getString("surname"));
+                userByLogin.setTelegramUser(rs.getString("telegram_user"));
+                userByLogin.setTelegramId(rs.getLong("telegram_id"));
+                userByLogin.setPhone(rs.getString("phone"));
+                userByLogin.setRole(role);
+                userByLogin.setGroup(group);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Exception while trying found users by login.", e);
+        }
+        return userByLogin;
+    }
+
+    @Override
     public boolean save(User user) {
         boolean resultSave = false;
         try (Connection connection = DataSourceFactory.connection()) {
