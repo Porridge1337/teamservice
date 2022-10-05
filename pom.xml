@@ -9,7 +9,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>soapTest Maven Webapp</name>
+    <name>Team service soap</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,14 +34,12 @@
             <optional>true</optional>
             <version>${lombok.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -99,7 +97,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>ru.soap.teamservice.WebServiceServer</mainClass>
+                                <mainClass>ru.soap.teamservice</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
@@ -116,63 +114,23 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jaxws-maven-plugin</artifactId>
                     <version>2.6</version>
+                    <configuration>
+                        <wsdlUrls>
+                            <wsdlUrl>http://localhost:9898/Users?wsdl</wsdlUrl>
+                            <wsdlUrl>http://localhost:9898/Roles?wsdl</wsdlUrl>
+                            <wsdlUrl>http://localhost:9898/Groups?wsdl</wsdlUrl>
+                        </wsdlUrls>
+                        <packageName>ru.soap.teamservice</packageName>
+                        <keep>true</keep>
+                        <sourceDestDir>${project.build.directory}/generated-sources/</sourceDestDir>
+                        <wsdlDirectory>${project.basedir}/src/main/resources/</wsdlDirectory>
+                        <verbose>true</verbose>
+                    </configuration>
                     <executions>
                         <execution>
-                            <id>wsdl-user-import</id>
-                            <phase>generate-sources</phase>
                             <goals>
                                 <goal>wsimport</goal>
                             </goals>
-                            <configuration>
-                                <wsdlUrls>
-                                    <wsdlUrl>
-                                        http://localhost:9898/Users?wsdl
-                                    </wsdlUrl>
-                                </wsdlUrls>
-                                <packageName>ru.soap.teamservice.ws.client</packageName>
-                                <sourceDestDir>
-                                    ${project.basedir}/src/main/java/
-                                </sourceDestDir>
-                                <verbose>true</verbose>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>wsdl-role-import</id>
-                            <phase>generate-sources</phase>
-                            <goals>
-                                <goal>wsimport</goal>
-                            </goals>
-                            <configuration>
-                                <wsdlUrls>
-                                    <wsdlUrl>
-                                        http://localhost:9898/Roles?wsdl
-                                    </wsdlUrl>
-                                </wsdlUrls>
-                                <packageName>ru.soap.teamservice.ws.client</packageName>
-                                <sourceDestDir>
-                                    ${project.basedir}/src/main/java/
-                                </sourceDestDir>
-                                <verbose>true</verbose>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>wsdl-group-import</id>
-                            <phase>generate-sources</phase>
-                            <goals>
-                                <goal>wsimport</goal>
-                            </goals>
-                            <configuration>
-                                <wsdlUrls>
-                                    <wsdlUrl>
-                                        http://localhost:9898/Groups?wsdl
-                                    </wsdlUrl>
-                                </wsdlUrls>
-                                <packageName>ru.soap.teamservice.ws.client</packageName>
-                                <sourceDestDir>
-                                    ${project.basedir}/src/main/java/
-                                </sourceDestDir>
-                                <verbose>true</verbose>
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
