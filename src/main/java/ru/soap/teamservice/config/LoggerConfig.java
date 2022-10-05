@@ -16,9 +16,7 @@ public class LoggerConfig {
     private static Logger logger = Logger.getLogger(WebServiceServer.class.getName());
 
     public LoggerConfig() {
-        String root = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().
-                getResource("logger.properties").getPath());
-        try (InputStream inputStream = new FileInputStream(root);) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("logger.properties")) {
             LogManager.getLogManager().readConfiguration(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
