@@ -2,12 +2,12 @@ package ru.soap.teamservice;
 
 
 import ru.soap.teamservice.config.LoggerConfig;
-import ru.soap.teamservice.service.DaoGroup;
-import ru.soap.teamservice.service.DaoRole;
-import ru.soap.teamservice.service.DaoUser;
-import ru.soap.teamservice.service.impl.DaoGroupImpl;
-import ru.soap.teamservice.service.impl.DaoRoleImpl;
-import ru.soap.teamservice.service.impl.DaoUserImpl;
+import ru.soap.teamservice.service.GroupService;
+import ru.soap.teamservice.service.RoleService;
+import ru.soap.teamservice.service.UserService;
+import ru.soap.teamservice.service.impl.GroupServiceImpl;
+import ru.soap.teamservice.service.impl.RoleServiceImpl;
+import ru.soap.teamservice.service.impl.UserServiceImpl;
 
 import javax.xml.ws.Endpoint;
 import java.util.ArrayList;
@@ -22,17 +22,20 @@ public class WebServiceServer {
 
     public static void main(String[] args) {
         LoggerConfig.initialize();
+
+        UserService userService = new UserServiceImpl();
+        RoleService roleService = new RoleServiceImpl();
+        GroupService groupService = new GroupServiceImpl();
+
+
         String useruri = "http://localhost:9898/Users";
         String roleuri = "http://localhost:9898/Roles";
         String groupuri = "http://localhost:9898/Groups";
 
-        DaoUser daoUser = new DaoUserImpl();
-        DaoRole daoRole = new DaoRoleImpl();
-        DaoGroup daoGroup = new DaoGroupImpl();
 
-        Endpoint user = Endpoint.publish(useruri, daoUser);
-        Endpoint role = Endpoint.publish(roleuri, daoRole);
-        Endpoint group = Endpoint.publish(groupuri, daoGroup);
+        Endpoint user = Endpoint.publish(useruri, userService);
+        Endpoint role = Endpoint.publish(roleuri, roleService);
+        Endpoint group = Endpoint.publish(groupuri, groupService);
         List<Endpoint> endpointList = new ArrayList<>();
         endpointList.add(user);
         endpointList.add(role);

@@ -2,11 +2,8 @@ package ru.soap.teamservice.config;
 
 import ru.soap.teamservice.WebServiceServer;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
