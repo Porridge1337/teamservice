@@ -10,8 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.soap.teamservice.model.Group;
 import ru.soap.teamservice.model.Role;
 import ru.soap.teamservice.model.User;
-import ru.soap.teamservice.service.DaoGroup;
-import ru.soap.teamservice.service.DaoUser;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.when;
 @DisplayName("Сервист групп должен ")
 @ExtendWith(MockitoExtension.class)
 public class DaoGroupTest {
-
+/*
     @Mock
     private final DaoGroup daoGroup = new DaoGroupImpl();
     @Mock
@@ -91,5 +90,5 @@ public class DaoGroupTest {
         Assertions.assertEquals(daoGroup.deleteGroupById(1), user.getGroup().getGroup().isEmpty());
     }
 
-
+*/
 }
