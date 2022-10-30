@@ -1,6 +1,7 @@
 package ru.soap.teamservice.service;
 
 import ru.soap.teamservice.model.Group;
+import ru.soap.teamservice.model.dto.GroupDto;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -15,17 +16,17 @@ public interface GroupService {
     @WebMethod(operationName = "findAllGroups")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindAllGroups", localName = "findAllGroups")
     @ResponseWrapper(className = "ru.soap.teamservice.service.jaxws.FindAllGroupsResponse", localName = "FindAllGroupsResponse")
-    List<Group> findAllGroups();
+    List<GroupDto> findAllGroups();
 
     @WebMethod(operationName = "saveGroup")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.SaveGroup", localName = "saveGroup")
     @ResponseWrapper(className = "ru.soap.teamservice.service.jaxws.SaveGroupResponse", localName = "SaveGroupResponse")
-    boolean saveGroup(@WebParam(name = "saved-group") Group group);
+    boolean saveGroup(@WebParam(name = "saved-group") GroupDto group);
 
     @WebMethod(operationName = "updateGroup")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.UpdateGroup", localName = "updateGroup")
     @ResponseWrapper(className = "ru.soap.teamservice.service.jaxws.UpdateGroupResponse", localName = "UpdateGroupResponse")
-    boolean updateGroup(@WebParam(name = "updated-group") Group group);
+    boolean updateGroup(@WebParam(name = "updated-group") GroupDto group);
 
     @WebMethod(operationName = "deleteGroupById")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.DeleteGroupById", localName = "deleteGroupById")

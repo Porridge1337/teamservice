@@ -101,7 +101,7 @@ public class DaoUserImpl implements DaoUser {
         try (Session session = HibernateFactory.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
             List<User> usersByTelegramId = session.createQuery("SELECT u from User u WHERE u.telegramId = :telegramId",
-                    User.class).setParameter("telegramId", telegramId).list();
+                    User.class).setParameter("telegramId", Long.parseLong(telegramId)).list();
             if (usersByTelegramId.isEmpty()) {
                 RuntimeException ex = new NoSuchElementException("Can't find Users by telegram_id " + usersByTelegramId);
                 LOGGER.log(Level.SEVERE, ex.toString());

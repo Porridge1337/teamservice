@@ -2,7 +2,10 @@ package ru.soap.teamservice.service.impl;
 
 import ru.soap.teamservice.dao.DaoUser;
 import ru.soap.teamservice.dao.impl.DaoUserImpl;
+import ru.soap.teamservice.mapper.UserMapper;
+import ru.soap.teamservice.mapper.impl.UserMapperImpl;
 import ru.soap.teamservice.model.User;
+import ru.soap.teamservice.model.dto.UserDto;
 import ru.soap.teamservice.service.UserService;
 
 import javax.jws.WebService;
@@ -12,45 +15,48 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final DaoUser daoUser = new DaoUserImpl();
+    private final UserMapper userMapper = new UserMapperImpl();
 
     @Override
-    public List<User> findAllUsers() {
-        return daoUser.findAll();
+    public List<UserDto> findAllUsers() {
+        return userMapper.toUserDtos(daoUser.findAll());
     }
 
     @Override
-    public List<User> findUsersByRole(String roleName) {
-        return daoUser.findUsersByRole(roleName);
+    public List<UserDto> findUsersByRole(String roleName) {
+        return userMapper.toUserDtos(daoUser.findUsersByRole(roleName));
     }
 
     @Override
-    public List<User> findUsersByGroup(String groupName) {
-        return daoUser.findUsersByGroup(groupName);
+    public List<UserDto> findUsersByGroup(String groupName) {
+        return userMapper.toUserDtos(daoUser.findUsersByGroup(groupName));
     }
 
     @Override
-    public User findUserById(int id) {
-        return daoUser.findUserById(id).orElse(null);
+    public UserDto findUserById(int id) {
+        return userMapper.toUserDto(daoUser.findUserById(id).orElse(null));
     }
 
     @Override
-    public User findUserByLogin(String login) {
-        return daoUser.findUserByLogin(login).orElse(null);
+    public UserDto findUserByLogin(String login) {
+        return userMapper.toUserDto(daoUser.findUserByLogin(login).orElse(null));
     }
 
     @Override
-    public User findUserByTelegramId(String login) {
-        return daoUser.findUserByTelegramId(login).orElse(null);
+    public UserDto findUserByTelegramId(String login) {
+        return userMapper.toUserDto(daoUser.findUserByTelegramId(login).orElse(null));
     }
 
     @Override
-    public boolean save(User user) {
-        return daoUser.save(user);
+    public boolean save(UserDto user) {
+        User userEntity = userMapper.toEntityUser(user);
+        return daoUser.save(userEntity);
     }
 
     @Override
-    public boolean update(User user) {
-        return daoUser.update(user);
+    public boolean update(UserDto user) {
+        User userEntity = userMapper.toEntityUser(user);
+        return daoUser.update(userEntity);
     }
 
     @Override

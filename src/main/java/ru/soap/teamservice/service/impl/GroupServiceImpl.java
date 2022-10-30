@@ -2,7 +2,10 @@ package ru.soap.teamservice.service.impl;
 
 import ru.soap.teamservice.dao.DaoGroup;
 import ru.soap.teamservice.dao.impl.DaoGroupImpl;
+import ru.soap.teamservice.mapper.GroupMapper;
+import ru.soap.teamservice.mapper.impl.GroupMapperImpl;
 import ru.soap.teamservice.model.Group;
+import ru.soap.teamservice.model.dto.GroupDto;
 import ru.soap.teamservice.service.GroupService;
 
 import javax.jws.WebService;
@@ -12,20 +15,23 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
 
     private final DaoGroup daoGroup = new DaoGroupImpl();
+    private GroupMapper groupMapper = new GroupMapperImpl();
 
     @Override
-    public List<Group> findAllGroups() {
-        return daoGroup.findAllGroups();
+    public List<GroupDto> findAllGroups() {
+        return groupMapper.toGroupDtos(daoGroup.findAllGroups());
     }
 
     @Override
-    public boolean saveGroup(Group group) {
-        return daoGroup.saveGroup(group);
+    public boolean saveGroup(GroupDto group) {
+        Group groupEntity = groupMapper.toEntityGroup(group);
+        return daoGroup.saveGroup(groupEntity);
     }
 
     @Override
-    public boolean updateGroup(Group group) {
-        return daoGroup.updateGroup(group);
+    public boolean updateGroup(GroupDto group) {
+        Group groupEntity = groupMapper.toEntityGroup(group);
+        return daoGroup.updateGroup(groupEntity);
     }
 
     @Override

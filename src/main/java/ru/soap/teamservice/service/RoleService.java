@@ -1,6 +1,7 @@
 package ru.soap.teamservice.service;
 
 import ru.soap.teamservice.model.Role;
+import ru.soap.teamservice.model.dto.RoleDto;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -15,11 +16,11 @@ public interface RoleService {
     @WebMethod(operationName = "findUserRoles")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.FindUserRoles", localName = "findUserRoles")
     @ResponseWrapper(className = "ru.soap.teamservice.service.jaxws.FindUserRolesResponse", localName = "FindUserRolesResponse")
-    List<Role> findAllUserRoles();
+    List<RoleDto> findAllUserRoles();
 
     @WebMethod(operationName = "saveNewRole")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.SaveNewRole", localName = "saveNewRole")
     @ResponseWrapper(className = "ru.soap.teamservice.service.jaxws.saveNewRoleResponse", localName = "saveNewRoleResponse")
-    boolean saveNewRole(@WebParam(name = "new-save-role") Role role);
+    boolean saveNewRole(@WebParam(name = "new-save-role") RoleDto role);
 
 }

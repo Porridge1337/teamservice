@@ -2,6 +2,9 @@ package ru.soap.teamservice;
 
 
 import ru.soap.teamservice.config.LoggerConfig;
+import ru.soap.teamservice.model.dto.GroupDto;
+import ru.soap.teamservice.model.dto.RoleDto;
+import ru.soap.teamservice.model.dto.UserDto;
 import ru.soap.teamservice.service.GroupService;
 import ru.soap.teamservice.service.RoleService;
 import ru.soap.teamservice.service.UserService;
@@ -28,7 +31,7 @@ public class WebServiceServer {
         GroupService groupService = new GroupServiceImpl();
 
 
-        String useruri = "http://localhost:9898/Users";
+       String useruri = "http://localhost:9898/Users";
         String roleuri = "http://localhost:9898/Roles";
         String groupuri = "http://localhost:9898/Groups";
 
