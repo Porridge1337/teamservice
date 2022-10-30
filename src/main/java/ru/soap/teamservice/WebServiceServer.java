@@ -31,7 +31,7 @@ public class WebServiceServer {
         GroupService groupService = new GroupServiceImpl();
 
 
-       String useruri = "http://localhost:9898/Users";
+        String useruri = "http://localhost:9898/Users";
         String roleuri = "http://localhost:9898/Roles";
         String groupuri = "http://localhost:9898/Groups";
 

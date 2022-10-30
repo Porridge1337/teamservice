@@ -42,10 +42,10 @@ public class User {
     private long telegramId;
     @Column(name = "phone")
     private String phone;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_fk")
     private Role role;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_fk")
     private Group group;
 

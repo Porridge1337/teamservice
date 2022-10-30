@@ -30,7 +30,7 @@ public class Group {
     private int g_id;
     @Column(name = "groupname")
     private String group;
-    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<User> userGroups;
 
 }

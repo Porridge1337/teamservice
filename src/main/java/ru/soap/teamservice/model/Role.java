@@ -30,7 +30,7 @@ public class Role {
     private int r_id;
     @Column(name = "roleName")
     private String roleName;
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private Set<User> usersRole;
 
 }
