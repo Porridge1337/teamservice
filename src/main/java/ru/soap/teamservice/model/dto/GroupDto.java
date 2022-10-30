@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class GroupDto {
 
     private int g_id;
-
     private String group;
 
 

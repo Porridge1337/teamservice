@@ -21,7 +21,7 @@ public class GroupMapperImpl implements GroupMapper {
     @Override
     public Group toEntityGroup(GroupDto groupDto) {
         Group group = modelMapper.map(groupDto, Group.class);
-        return null;
+        return group;
     }
 
     @Override

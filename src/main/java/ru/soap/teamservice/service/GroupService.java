@@ -31,5 +31,5 @@ public interface GroupService {
     @WebMethod(operationName = "deleteGroupById")
     @RequestWrapper(className = "ru.soap.teamservice.service.jaxws.DeleteGroupById", localName = "deleteGroupById")
     @ResponseWrapper(className = "ru.soap.teamservice.service.jaxws.DeleteGroupByIdResponse", localName = "DeleteGroupByIdResponse")
-    boolean deleteGroupById(@WebParam(name = "group id to be deleted") int id);
+    boolean deleteGroupById(@WebParam(name = "group-id-to-be-deleted") int id);
 }
