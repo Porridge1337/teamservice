@@ -21,7 +21,8 @@ public class DaoRoleImpl implements DaoRole {
     public List<Role> findUserRoles() {
         try (Session session = HibernateFactory.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
-            List<Role> roles = session.createQuery("SELECT r from Role r ", Role.class).getResultList();
+            List<Role> roles = session.createQuery("SELECT r from Role r LEFT JOIN FETCH r.usersRole", Role.class)
+                    .getResultList();
             if (roles.isEmpty()) {
                 RuntimeException ex = new NoSuchElementException("Role database is empty");
                 LOGGER.log(Level.SEVERE, ex.toString());

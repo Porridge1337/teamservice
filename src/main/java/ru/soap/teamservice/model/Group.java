@@ -16,13 +16,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
+@Entity
+@Table(name = "groups", schema = "service")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "group")
 @ToString(exclude = "userGroups")
-@Entity
-@Table(name = "groups", schema = "service")
 public class Group {
 
     @Id

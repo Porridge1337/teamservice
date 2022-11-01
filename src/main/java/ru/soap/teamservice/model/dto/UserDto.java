@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,8 +25,8 @@ public class UserDto {
 
     private String phone;
 
-    private RoleDto role;
-
     private GroupDto group;
+
+    private Set<RoleDto> roles;
 
 }

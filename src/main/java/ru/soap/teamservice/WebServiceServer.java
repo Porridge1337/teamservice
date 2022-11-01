@@ -14,8 +14,11 @@ import ru.soap.teamservice.service.impl.UserServiceImpl;
 
 import javax.xml.ws.Endpoint;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Logger;
 
 
@@ -29,7 +32,6 @@ public class WebServiceServer {
         UserService userService = new UserServiceImpl();
         RoleService roleService = new RoleServiceImpl();
         GroupService groupService = new GroupServiceImpl();
-
 
         String useruri = "http://localhost:9898/Users";
         String roleuri = "http://localhost:9898/Roles";
@@ -54,7 +56,6 @@ public class WebServiceServer {
         sc.close();
         endpointList.stream().forEach(endpoint -> endpoint.stop());
         logger.info("All services has been stopped.");
-
     }
 
 }

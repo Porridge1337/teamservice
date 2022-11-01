@@ -12,17 +12,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
+@Entity
+@Table(name = "roles", schema = "service")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "usersRole")
 @ToString(exclude = "usersRole")
-@Entity
-@Table(name = "roles", schema = "service")
 public class Role {
 
     @Id
@@ -30,7 +30,7 @@ public class Role {
     private int r_id;
     @Column(name = "roleName")
     private String roleName;
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     private Set<User> usersRole;
 
 }

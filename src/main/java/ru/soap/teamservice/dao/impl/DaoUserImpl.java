@@ -21,15 +21,15 @@ public class DaoUserImpl implements DaoUser {
     public List<User> findAll() {
         try (Session session = HibernateFactory.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
-            List<User> users = session.createQuery("SELECT u from User u LEFT join fetch u.group " +
-                    "LEFT join fetch u.role", User.class).getResultList();
-            if (users.isEmpty()) {
+            List<User> userManyToManies = session.createQuery("SELECT DISTINCT (u) from User u LEFT join fetch u.group " +
+                    "LEFT join fetch u.roles", User.class).getResultList();
+            if (userManyToManies.isEmpty()) {
                 RuntimeException ex = new NoSuchElementException("Database is empty");
                 LOGGER.log(Level.SEVERE, ex.toString());
                 throw ex;
             }
             transaction.commit();
-            return users;
+            return userManyToManies;
         }
     }
 
@@ -37,7 +37,8 @@ public class DaoUserImpl implements DaoUser {
     public List<User> findUsersByRole(String roleName) {
         try (Session session = HibernateFactory.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
-            List<User> usersByRole = session.createQuery("SELECT u from User u WHERE u.role.roleName = :roleName",
+            List<User> usersByRole = session.createQuery("SELECT DISTINCT (u) from User u LEFT join fetch u.group " +
+                            "LEFT join fetch u.roles s WHERE s.roleName= :roleName",
                     User.class).setParameter("roleName", roleName).getResultList();
             if (usersByRole.isEmpty()) {
                 RuntimeException ex = new NoSuchElementException("Can't find Users by role " + roleName);
@@ -53,8 +54,8 @@ public class DaoUserImpl implements DaoUser {
     public List<User> findUsersByGroup(String groupName) {
         try (Session session = HibernateFactory.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
-            List<User> usersByGroup = session.createQuery("SELECT u from User u LEFT join fetch u.group " +
-                            "LEFT join fetch u.role WHERE u.group.group = :groupName",
+            List<User> usersByGroup = session.createQuery("SELECT DISTINCT (u) from User u LEFT join fetch u.group " +
+                            "LEFT join fetch u.roles WHERE u.group.group = :groupName",
                     User.class).setParameter("groupName", groupName).getResultList();
             if (usersByGroup.isEmpty()) {
                 RuntimeException ex = new NoSuchElementException("Can't find Users by group " + usersByGroup);
@@ -70,7 +71,7 @@ public class DaoUserImpl implements DaoUser {
     public Optional<User> findUserById(int id) {
         try (Session session = HibernateFactory.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
-            List<User> usersById = session.createQuery("SELECT u from User u LEFT JOIN FETCH u.role " +
+            List<User> usersById = session.createQuery("SELECT DISTINCT (u) from User u LEFT JOIN FETCH u.roles " +
                             "LEFT join fetch u.group WHERE u.id = :id",
                     User.class).setParameter("id", id).list();
             if (usersById.isEmpty()) {
@@ -87,7 +88,7 @@ public class DaoUserImpl implements DaoUser {
     public Optional<User> findUserByLogin(String login) {
         try (Session session = HibernateFactory.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
-            List<User> usersByLogin = session.createQuery("SELECT u from User u LEFT JOIN FETCH u.role " +
+            List<User> usersByLogin = session.createQuery("SELECT DISTINCT (u) from User u LEFT JOIN FETCH u.roles " +
                             "LEFT join fetch u.group WHERE u.login = :login",
                     User.class).setParameter("login", login).list();
             if (usersByLogin.isEmpty()) {
@@ -104,7 +105,7 @@ public class DaoUserImpl implements DaoUser {
     public Optional<User> findUserByTelegramId(String telegramId) {
         try (Session session = HibernateFactory.getSessionFactory().getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
-            List<User> usersByTelegramId = session.createQuery("SELECT u from User u LEFT JOIN FETCH u.role " +
+            List<User> usersByTelegramId = session.createQuery("SELECT DISTINCT (u) from User u LEFT JOIN FETCH u.roles " +
                             "LEFT join fetch u.group WHERE u.telegramId = :telegramId",
                     User.class).setParameter("telegramId", Long.parseLong(telegramId)).list();
             if (usersByTelegramId.isEmpty()) {

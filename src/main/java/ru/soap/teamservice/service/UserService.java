@@ -1,6 +1,5 @@
 package ru.soap.teamservice.service;
 
-import ru.soap.teamservice.model.User;
 import ru.soap.teamservice.model.dto.UserDto;
 
 import javax.jws.WebMethod;
@@ -9,7 +8,6 @@ import javax.jws.WebService;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 import java.util.List;
-import java.util.Optional;
 
 @WebService
 public interface UserService {
