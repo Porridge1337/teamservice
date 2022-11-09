@@ -2,9 +2,6 @@ package ru.soap.teamservice;
 
 
 import ru.soap.teamservice.config.LoggerConfig;
-import ru.soap.teamservice.model.dto.GroupDto;
-import ru.soap.teamservice.model.dto.RoleDto;
-import ru.soap.teamservice.model.dto.UserDto;
 import ru.soap.teamservice.service.GroupService;
 import ru.soap.teamservice.service.RoleService;
 import ru.soap.teamservice.service.UserService;
@@ -14,11 +11,8 @@ import ru.soap.teamservice.service.impl.UserServiceImpl;
 
 import javax.xml.ws.Endpoint;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.logging.Logger;
 
 
